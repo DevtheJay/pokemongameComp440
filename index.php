@@ -9,12 +9,15 @@
 <body>
     <div class="container">
         <div class="box">
-            <h1>Pokémon Database</h1>
-            <a href="pokedex.php" class="btn">View Pokédex</a>
-            <a href="moves.php" class="btn">Moves</a>
-            <a href="battles.php" class="btn">Battles</a>
-            <a href="inventory.php" class="btn">Inventory</a>
-            <a href="user.php" class="btn">Users</a>
+            <div class ="form-box">
+                <h1>Pokémon Database</h1>
+                <a href="pokedex.php" class="btn">View Pokédex</a>
+                <a href="moves.php" class="btn">Moves</a>
+                <a href="battles.php" class="btn">Battles</a>
+                <a href="inventory.php" class="btn">Inventory</a>
+                <a href="user.php" class="btn">Users</a>
+            </div>
+           
         </div>
     </div>
 </body>
