@@ -8,7 +8,7 @@ create table if not exists pokedex(
     pokemon_name varchar(50),
     pokemon_type_1 varchar(20) not null,
     pokemon_type_2 varchar(20) default null,
-    P_E_L int not null
+    evolution_lvl int not null
 );
 
 -- Table: location
@@ -73,17 +73,7 @@ create table if not exists battle(
     outcome varchar(50)
 );
 
--- Table: item_inventory
-create table if not exists item_inventory(
-    entity_id int,
-    item_id int,
-    item_name varchar(50),
-    quantity int check (quantity <= 10),
-    npc_id int,
-    primary key (entity_id, item_id),
-    foreign key(item_id) references items(item_id),
-    foreign key(npc_id) references NPCS(npc_id)
-);
+
 
 -- Table: user_inventory
 create table if not exists user_inventory(
@@ -102,26 +92,49 @@ create table if not exists npc_inventory(
     item_id int,
     item_name varchar(50),
     quantity int check (quantity <= 10),
-    npc_id int,
+    onwer_id int,
     primary key (item_id, npc_id),
     foreign key(item_id) references items(item_id),
     foreign key(npc_id) references NPCS(npc_id)
 );
-
 -- Table: pokemon_inventory
-create table if not exists pokemon_inventory(
-    entity_id int primary key,
-    owner_id int,
+create table if not exists npc_pokemon_inventory(
+    entity_id int,
+    npc_id int, 
     pokemon_id int,
     pokemon_nickname varchar(12),
     pokemon_gender varchar(10) check (pokemon_gender in ('male', 'female', 'Male', 'Female')),
     pokemon_health int,
     pokemon_lvl int check (pokemon_lvl between 1 and 100),
     pokemon_status varchar(20),
-    pokemon_moves_1 varchar(50),
-    pokemon_moves_2 varchar(50),
-    pokemon_moves_3 varchar(50),
-    pokemon_moves_4 varchar(50)
+    pokemon_moves_1 int,
+    pokemon_moves_2 int,
+    pokemon_moves_3 int,
+    pokemon_moves_4 int,
+    primary key (entity_id, npc_id),
+    foreign key(pokemon_id) references pokedex(pokemon_id),
+    foreign key(npc_id) references NPCS(npc_id)
+    foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
+);
+
+
+create table if not exists user_pokemon_inventory(
+    entity_id int,
+    user_id int, 
+    pokemon_id int,
+    pokemon_nickname varchar(12),
+    pokemon_gender varchar(10) check (pokemon_gender in ('male', 'female', 'Male', 'Female')),
+    pokemon_health int,
+    pokemon_lvl int check (pokemon_lvl between 1 and 100),
+    pokemon_status varchar(20),
+    pokemon_moves_1 int,
+    pokemon_moves_2 int,
+    pokemon_moves_3 int,
+    pokemon_moves_4 int,
+    primary key (entity_id, user_id),
+    foreign key(pokemon_id) references pokedex(pokemon_id),
+    foreign key(user_id) references user(user_id)
+    foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
 );
 
 
