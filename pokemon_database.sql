@@ -113,7 +113,7 @@ create table if not exists npc_pokemon_inventory(
     pokemon_moves_4 int,
     primary key (entity_id, npc_id),
     foreign key(pokemon_id) references pokedex(pokemon_id),
-    foreign key(npc_id) references NPCS(npc_id)
+    foreign key(npc_id) references NPCS(npc_id),
     foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
 );
 
