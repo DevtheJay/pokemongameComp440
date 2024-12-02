@@ -212,7 +212,7 @@ INSERT INTO gym (gym_name, npc_id, location_id) VALUES
 ('Viridian City Gym', 8, 2);     -- Giovanni's Gym in Viridian City
 
 
-INSERT INTO pokedex (pokemon_name, pokemon_type_1, pokemon_type_2, evolution_level)
+INSERT INTO pokedex (pokemon_name, pokemon_type_1, pokemon_type_2, evolution_lvl)
 VALUES
 ('Bulbasaur', 'Grass', 'Poison', 16),
 ('Ivysaur', 'Grass', 'Poison', 32),
