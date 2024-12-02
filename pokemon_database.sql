@@ -1,95 +1,107 @@
+-- Create database
 create database if not exists game;
 use game;
 
+-- Table: pokedex
 create table if not exists pokedex(
-pokemon_id int primary key auto_increment,
-pokemon_name varchar(50),
-pokemon_type_1 varchar(20) not null,
-pokemon_type_2 varchar(20) default null,
-P_E_L int not null
+    pokemon_id int primary key auto_increment,
+    pokemon_name varchar(50),
+    pokemon_type_1 varchar(20) not null,
+    pokemon_type_2 varchar(20) default null,
+    P_E_L int not null
 );
 
-
+-- Table: location
 create table if not exists location(
-location_id int primary key,
-location_name varchar(50),
-location_type varchar(50),
-building_type varchar(50)
+    location_id int primary key,
+    location_name varchar(50),
+    location_type varchar(50),
+    building_type varchar(50)
 );
 
+-- Table: users
 create table if not exists users(
-user_id int primary key,
-nickname varchar(50),
-gender varchar(10),
-location_id varchar(50),
-foreign key(location_id) references location(location_id)
-);
-create table if not exists items(
-item_id int primary key,
-item_name varchar(50),
-item_description varchar(100),
-location_id varchar(50),
-foreign key(location_id) references location(location_id)
-);
-create table if not exists moves(
-move_id int primary key,
-move_name varchar(50) unique,
-move_damage varchar(100),
-move_accuracy varchar(50),
-move_type varchar(50)
-);
-create table if not exists NPCS(
-npc_id int primary key,
-npc_name varchar(50),
-location_id varchar(50) primary key,
-occupation varchar(100),
-foreign key(location_id) references location(location_id)
-);
-create table if not exists gym(
-gym_id int primary key,
-gym_name varchar(50),
-npc_id int primary key,
-location_id varchar(50) primary key,
-foreign key(location_id) references location(location_id),
-foreign key(npc_id) references NPCS(npc_id)
+    user_id int primary key,
+    nickname varchar(50),
+    gender varchar(10),
+    location_id int,
+    foreign key(location_id) references location(location_id)
 );
 
+-- Table: items
+create table if not exists items(
+    item_id int primary key,
+    item_name varchar(50),
+    item_description varchar(100),
+    location_id int,
+    foreign key(location_id) references location(location_id)
+);
+
+-- Table: moves
+create table if not exists moves(
+    move_id int primary key,
+    move_name varchar(50) unique,
+    move_damage varchar(100),
+    move_accuracy varchar(50),
+    move_type varchar(50)
+);
+
+-- Table: NPCS
+create table if not exists NPCS(
+    npc_id int primary key,
+    npc_name varchar(50),
+    location_id int,
+    occupation varchar(100),
+    foreign key(location_id) references location(location_id)
+);
+
+-- Table: gym
 create table if not exists gym(
-gym_id int primary key,
-gym_name varchar(50),
-npc_id int primary key,
-location_id varchar(50) primary key
+    gym_id int primary key,
+    gym_name varchar(50),
+    npc_id int,
+    location_id int,
+    foreign key(location_id) references location(location_id),
+    foreign key(npc_id) references NPCS(npc_id)
 );
+
+-- Table: battle
 create table if not exists battle(
-battle_id int primary key,
-participant_1 varchar(50),
-participant_2 varchar(50),
-outcome varchar(50)
+    battle_id int primary key,
+    participant_1 varchar(50),
+    participant_2 varchar(50),
+    outcome varchar(50)
 );
+
+-- Table: item_inventory
 create table if not exists item_inventory(
-entity_id int primary key,
-item_id int primary key,
-item_name varchar(50),
-quantity int,
-check (quantity <= 10),
-foreign key(item_id) references items(item_id),
-foreign key(npc_id) references NPCS(npc_id)
+    entity_id int,
+    item_id int,
+    item_name varchar(50),
+    quantity int check (quantity <= 10),
+    npc_id int,
+    primary key (entity_id, item_id),
+    foreign key(item_id) references items(item_id),
+    foreign key(npc_id) references NPCS(npc_id)
 );
+
+-- Table: pokemon_inventory
 create table if not exists pokemon_inventory(
-entity_id int,
-trainer_id int,
-pokemon_id int,
-pokemon_nickname varchar(12),
-pokemon_gender varchar(10) check (pokemon_gender in ('male', 'female', 'Male', 'Female')),
-pokemon_health int,
-pokemon_lvl int check (pokemon_level between 1 and 100),
-pokemon_status varchar(20),
-pokemon_moves_1 varchar(50),
-pokemon_moves_2 varchar(50),
-pokemon_moves_3 varchar(50),
-pokemon_moves_4 varchar(50),
-primary key (entity_id, trainer_id, pokemon_id)
+    entity_id int,
+    trainer_id int,
+    pokemon_id int,
+    pokemon_nickname varchar(12),
+    pokemon_gender varchar(10) check (pokemon_gender in ('male', 'female', 'Male', 'Female')),
+    pokemon_health int,
+    pokemon_lvl int check (pokemon_lvl between 1 and 100),
+    pokemon_status varchar(20),
+    pokemon_moves_1 varchar(50),
+    pokemon_moves_2 varchar(50),
+    pokemon_moves_3 varchar(50),
+    pokemon_moves_4 varchar(50),
+    primary key (entity_id, trainer_id, pokemon_id)
 );
+
 
 INSERT INTO pokedex (pokemon_name, pokemon_type_1, pokemon_type_2, P_E_L)
 VALUES
