@@ -85,10 +85,33 @@ create table if not exists item_inventory(
     foreign key(npc_id) references NPCS(npc_id)
 );
 
+-- Table: user_inventory
+create table if not exists user_inventory(
+    item_id int,
+    item_name varchar(50),
+    quantity int check (quantity <= 10),
+    user_id int,
+    primary key (item_id, user_id),
+    foreign key(item_id) references items(item_id),
+    foreign key(user_id) references users(user_id)
+);
+
+
+-- Table: npc_inventory
+create table if not exists npc_inventory(
+    item_id int,
+    item_name varchar(50),
+    quantity int check (quantity <= 10),
+    npc_id int,
+    primary key (item_id, npc_id),
+    foreign key(item_id) references items(item_id),
+    foreign key(npc_id) references NPCS(npc_id)
+);
+
 -- Table: pokemon_inventory
 create table if not exists pokemon_inventory(
-    entity_id int,
-    trainer_id int,
+    entity_id int primary key,
+    owner_id int,
     pokemon_id int,
     pokemon_nickname varchar(12),
     pokemon_gender varchar(10) check (pokemon_gender in ('male', 'female', 'Male', 'Female')),
@@ -98,8 +121,7 @@ create table if not exists pokemon_inventory(
     pokemon_moves_1 varchar(50),
     pokemon_moves_2 varchar(50),
     pokemon_moves_3 varchar(50),
-    pokemon_moves_4 varchar(50),
-    primary key (entity_id, trainer_id, pokemon_id)
+    pokemon_moves_4 varchar(50)
 );
 
 
