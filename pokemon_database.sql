@@ -1,5 +1,6 @@
 create database if not exists game;
 
+USE game;
 
 create table if not exists pokedex(
 pokemon_id int primary key auto_increment,
