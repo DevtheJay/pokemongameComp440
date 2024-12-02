@@ -2,10 +2,10 @@ create database if not exists game;
 
 
 create table if not exists pokedex(
-pokemon_id int primary key,
+pokemon_id int primary key auto_increment,
 pokemon_name varchar(50),
 pokemon_type_1 varchar(20) not null,
-pokemon_type_1 varchar(20) default null,
+pokemon_type_2 varchar(20) default null,
 P_E_L int not null
 );
 
