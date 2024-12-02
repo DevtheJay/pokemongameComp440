@@ -133,7 +133,7 @@ create table if not exists user_pokemon_inventory(
     pokemon_moves_4 int,
     primary key (entity_id, user_id),
     foreign key(pokemon_id) references pokedex(pokemon_id),
-    foreign key(user_id) references user(user_id)
+    foreign key(user_id) references user(user_id),
     foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
 );
 
