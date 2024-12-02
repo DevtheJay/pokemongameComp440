@@ -78,9 +78,8 @@ create table if not exists battle(
 -- Table: user_inventory
 create table if not exists user_inventory(
     item_id int,
-    item_name varchar(50),
-    quantity int check (quantity <= 10),
     user_id int,
+    quantity int check (quantity <= 10),
     primary key (item_id, user_id),
     foreign key(item_id) references items(item_id),
     foreign key(user_id) references users(user_id)
@@ -90,7 +89,6 @@ create table if not exists user_inventory(
 -- Table: npc_inventory
 create table if not exists npc_inventory(
     item_id int,
-    item_name varchar(50),
     quantity int check (quantity <= 10),
     onwer_id int,
     primary key (item_id, npc_id),
@@ -113,7 +111,7 @@ create table if not exists npc_pokemon_inventory(
     pokemon_moves_4 int,
     primary key (entity_id, npc_id),
     foreign key(pokemon_id) references pokedex(pokemon_id),
-    foreign key(npc_id) references NPCS(npc_id)
+    foreign key(npc_id) references NPCS(npc_id),
     foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
 );
 
@@ -133,7 +131,7 @@ create table if not exists user_pokemon_inventory(
     pokemon_moves_4 int,
     primary key (entity_id, user_id),
     foreign key(pokemon_id) references pokedex(pokemon_id),
-    foreign key(user_id) references user(user_id)
+    foreign key(user_id) references user(user_id),
     foreign key(pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4) references moves(move_id)
 );
 
