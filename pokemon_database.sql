@@ -189,7 +189,7 @@ INSERT INTO location (location_name, type_id, building_id) VALUES
 ('Indigo Plateau', 2, 7);    -- League Room
 
 INSERT INTO users (nickname, gender, location_id) VALUES
-('Ash', 'Male', 1),       -- Starting trainer, Pallet Town
+('Ash', 'Male', 1);       -- Starting trainer, Pallet Town
 
 INSERT INTO NPCS (npc_name, location_id, occupation) VALUES
 ('Brock', 3, 'Gym Leader'),         -- Pewter City Gym Leader
