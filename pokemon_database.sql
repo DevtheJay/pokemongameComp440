@@ -46,9 +46,7 @@ create table if not exists users(
 create table if not exists items(
     item_id int primary key auto_increment,
     item_name varchar(50),
-    item_description varchar(100),
-    location_id int,
-    foreign key(location_id) references location(location_id)
+    item_description varchar(100)
 );
 
 -- Table: moves
