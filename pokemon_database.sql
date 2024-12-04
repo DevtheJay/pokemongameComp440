@@ -27,7 +27,7 @@ create table if not exists location(
 -- Table: pokedex
 create table if not exists pokedex(
     pokemon_id int primary key auto_increment,
-    pokemon_name varchar(50),
+    pokemon_name varchar(50) unique,
     pokemon_type_1 varchar(20) not null,
     pokemon_type_2 varchar(20) default null,
     evolution_lvl int
@@ -45,10 +45,8 @@ create table if not exists users(
 -- Table: items
 create table if not exists items(
     item_id int primary key auto_increment,
-    item_name varchar(50),
-    item_description varchar(100),
-    location_id int,
-    foreign key(location_id) references location(location_id)
+    item_name varchar(50) unique,
+    item_description varchar(100)
 );
 
 -- Table: moves
@@ -450,3 +448,145 @@ VALUES
 ('Counter', 'Varies', '100%', 'Fighting'),
 ('Withdraw', '0', '100%', 'Water');
 
+
+INSERT INTO items (item_name, item_description)
+VALUES
+('Potion', 'Restores 20 HP of a Pokémon.'),
+('Super Potion', 'Restores 50 HP of a Pokémon.'),
+('Hyper Potion', 'Restores 120 HP of a Pokémon.'),
+('Max Potion', 'Fully restores a Pokémon\'s HP.'),
+('Full Restore', 'Fully restores HP and cures all status conditions.'),
+('Revive', 'Revives a fainted Pokémon with half HP.'),
+('Max Revive', 'Fully revives a fainted Pokémon.'),
+('Antidote', 'Cures a poisoned Pokémon.'),
+('Paralyze Heal', 'Cures a paralyzed Pokémon.'),
+('Burn Heal', 'Cures a burned Pokémon.'),
+('Ice Heal', 'Cures a frozen Pokémon.'),
+('Awakening', 'Wakes up a sleeping Pokémon.'),
+('Full Heal', 'Cures all status conditions.'),
+('Poké Ball', 'A device for catching wild Pokémon.'),
+('Great Ball', 'A good-quality ball with a higher catch rate.'),
+('Ultra Ball', 'An ultra-high-performance ball.'),
+('Master Ball', 'The ultimate ball that guarantees a catch.'),
+('Escape Rope', 'Allows escape from caves or dungeons.'),
+('Repel', 'Repels weak wild Pokémon for 100 steps.'),
+('Super Repel', 'Repels weak wild Pokémon for 200 steps.'),
+('Max Repel', 'Repels weak wild Pokémon for 250 steps.'),
+('Rare Candy', 'Raises a Pokémon\'s level by 1.'),
+('Elixir', 'Restores 10 PP to all moves.'),
+('Max Elixir', 'Fully restores PP to all moves.'),
+('Ether', 'Restores 10 PP to one move.'),
+('Max Ether', 'Fully restores PP to one move.'),
+('X Attack', 'Raises a Pokémon\'s Attack during battle.'),
+('X Defense', 'Raises a Pokémon\'s Defense during battle.'),
+('X Speed', 'Raises a Pokémon\'s Speed during battle.'),
+('X Special', 'Raises a Pokémon\'s Special Attack.'),
+('Guard Spec.', 'Prevents stat reduction for 5 turns.'),
+('HP Up', 'Permanently increases a Pokémon\'s HP.'),
+('Protein', 'Permanently increases a Pokémon\'s Attack.'),
+('Iron', 'Permanently increases a Pokémon\'s Defense.'),
+('Carbos', 'Permanently increases a Pokémon\'s Speed.'),
+('Calcium', 'Permanently increases a Pokémon\'s Special.'),
+('Moon Stone', 'Evolves certain Pokémon.'),
+('Fire Stone', 'Evolves certain Fire-type Pokémon.'),
+('Thunder Stone', 'Evolves certain Electric-type Pokémon.'),
+('Water Stone', 'Evolves certain Water-type Pokémon.'),
+('Leaf Stone', 'Evolves certain Grass-type Pokémon.'),
+('PP Up', 'Increases the maximum PP of a selected move.'),
+('PP Max', 'Maximizes the PP of a selected move.'),
+('Exp. All', 'Shares experience points among Pokémon.'),
+('Bike Voucher', 'Exchange for a Bicycle at the shop.'),
+('Old Rod', 'A basic fishing rod for catching Pokémon.'),
+('Good Rod', 'A good-quality fishing rod for catching Pokémon.'),
+('Super Rod', 'The best-quality fishing rod.'),
+('Town Map', 'Displays a map of the region.'),
+('TM01', 'Contains the move Mega Punch.'),
+('HM01', 'Contains the move Cut.'),
+('HM02', 'Contains the move Fly.'),
+('HM03', 'Contains the move Surf.'),
+('HM04', 'Contains the move Strength.'),
+('HM05', 'Contains the move Flash.');
+
+
+-- Assign Pikachu to Ash
+INSERT INTO user_pokemon_inventory (
+    user_id, pokemon_id, pokemon_nickname, pokemon_gender, pokemon_health, pokemon_lvl, pokemon_status, 
+    pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4
+)
+VALUES (
+    1, -- Ash's user_id
+    (SELECT pokemon_id FROM pokedex WHERE pokemon_name = 'Pikachu'), -- Pikachu's ID
+    'Pika', -- Nickname
+    CASE WHEN RAND() < 0.5 THEN 'Male' ELSE 'Female' END, -- Random gender
+    100, -- Full health
+    25, -- Level
+    'Healthy', -- Status
+    (SELECT move_id FROM moves WHERE move_name = 'Thunder Shock'),
+    (SELECT move_id FROM moves WHERE move_name = 'Quick Attack'),
+    (SELECT move_id FROM moves WHERE move_name = 'Thunderbolt'),
+    (SELECT move_id FROM moves WHERE move_name = 'Iron Tail') -- Custom moves
+);
+
+-- Assign Onix to Brock
+INSERT INTO npc_pokemon_inventory (
+    npc_id, pokemon_id, pokemon_nickname, pokemon_gender, pokemon_health, pokemon_lvl, pokemon_status, 
+    pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4
+)
+VALUES (
+    1, -- Brock's npc_id
+    (SELECT pokemon_id FROM pokedex WHERE pokemon_name = 'Onix'), -- Onix's ID
+    'Rocky', -- Nickname
+    CASE WHEN RAND() < 0.5 THEN 'Male' ELSE 'Female' END, -- Random gender
+    150, -- Full health
+    30, -- Level
+    'Healthy', -- Status
+    (SELECT move_id FROM moves WHERE move_name = 'Rock Throw'),
+    (SELECT move_id FROM moves WHERE move_name = 'Tackle'),
+    (SELECT move_id FROM moves WHERE move_name = 'Bind'),
+    NULL -- Only 3 moves assigned
+);
+
+
+-- Assign Starmie to Misty
+INSERT INTO npc_pokemon_inventory (
+    npc_id, pokemon_id, pokemon_nickname, pokemon_gender, pokemon_health, pokemon_lvl, pokemon_status, 
+    pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4
+)
+VALUES (
+    2, -- Misty's npc_id
+    (SELECT pokemon_id FROM pokedex WHERE pokemon_name = 'Starmie'), -- Starmie's ID
+    'Star', -- Nickname
+    CASE WHEN RAND() < 0.5 THEN 'Male' ELSE 'Female' END, -- Random gender
+    120, -- Full health
+    32, -- Level
+    'Healthy', -- Status
+    (SELECT move_id FROM moves WHERE move_name = 'Water Gun'),
+    (SELECT move_id FROM moves WHERE move_name = 'Bubble Beam'),
+    (SELECT move_id FROM moves WHERE move_name = 'Swift'),
+    (SELECT move_id FROM moves WHERE move_name = 'Recover')
+);
+
+-- Add items to Ash's inventory
+INSERT INTO user_inventory (item_id, user_id, quantity)
+VALUES
+    ((SELECT item_id FROM items WHERE item_name = 'Poké Ball'), 1, 10), -- 10 Poké Balls
+    ((SELECT item_id FROM items WHERE item_name = 'Potion'), 1, 5),    -- 5 Potions
+    ((SELECT item_id FROM items WHERE item_name = 'Revive'), 1, 2);    -- 2 Revives
+
+-- Add items to Brock's inventory
+INSERT INTO npc_inventory (item_id, npc_id, quantity)
+VALUES
+    ((SELECT item_id FROM items WHERE item_name = 'Rock Incense'), 1, 1), -- 1 Rock Incense
+    ((SELECT item_id FROM items WHERE item_name = 'Full Restore'), 1, 2); -- 2 Full Restores
+
+-- Add items to Misty's inventory
+INSERT INTO npc_inventory (item_id, npc_id, quantity)
+VALUES
+    ((SELECT item_id FROM items WHERE item_name = 'Water Stone'), 2, 1), -- 1 Water Stone
+    ((SELECT item_id FROM items WHERE item_name = 'Max Potion'), 2, 3);  -- 3 Max Potions
+
+-- Add items to Lt. Surge's inventory
+INSERT INTO npc_inventory (item_id, npc_id, quantity)
+VALUES
+    ((SELECT item_id FROM items WHERE item_name = 'Thunder Stone'), 3, 1), -- 1 Thunder Stone
+    ((SELECT item_id FROM items WHERE item_name = 'Hyper Potion'), 3, 4);  -- 4 Hyper Potions

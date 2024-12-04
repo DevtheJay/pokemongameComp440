@@ -3,86 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            height: 500px;
-            width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f6f6;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            width: 100px;
-            font-weight: 500;
-        }
-        .form-group input {
-            flex: 1;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #9d9c9c;
-            background-color: #2f312e; /* Matching colors */
-            color: white;
-        }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 10px 15px;
-            background: rgba(97, 120, 93, 0.808);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            flex: 1;
-            margin: 0 5px;
-        }
-        .btn:hover {
-            opacity: 0.82;
-        }
-    </style>
+    <title>Inventory</title>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Inventory</h2>
-        <form action="" method="post">
-            <div class="form-group">
-                <label for="user_id">User ID:</label>
-                <input type="text" id="user_id" name="user_id" required>
-            </div>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <input type="text" id="gender" name="gender" required>
-            </div>
-            <div class="form-group">
-                <label for="location_id">Location ID:</label>
-                <input type="text" id="location_id" name="location_id" required>
-            </div>
-            
-            <div class="button-container">
-                <button type="submit" name="action" value="add" class="btn">Add</button>
-                <button type="submit" name="action" value="search" class="btn">Search</button>
-                <button type="submit" name="action" value="modify" class="btn">Modify</button>
-                <button type="submit" name="action" value="delete" class="btn">Delete</button>
-            </div>
-        </form>
+    <h1>Inventory</h1>
+    <div class="container">
+        <div class="box">
+            <!-- Dropdown for inventory view -->
+            <label for="inventory-filter">View Inventory:</label>
+            <select id="inventory-filter" class="btn">
+                <option value="">Select</option>
+                <option value="users">Users</option>
+                <option value="npcs">NPCs</option>
+                <option value="all">All Entities</option>
+            </select>
+
+            <!-- Container for inventory data -->
+            <div id="inventory-container" style="margin-top: 20px;"></div>
+        </div>
     </div>
+    <a href="index.php" class="btn">Back to Home</a>
+
+    <!-- JavaScript for fetching and displaying inventory -->
+    <script>
+        const inventoryFilter = document.getElementById('inventory-filter');
+        const inventoryContainer = document.getElementById('inventory-container');
+
+        // Fetch and display inventory based on filter selection
+        inventoryFilter.addEventListener('change', function() {
+            const filter = this.value;
+            if (filter) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'fetch_inventory.php?filter=' + encodeURIComponent(filter), true);
+                xhr.onload = function() {
+                    if (this.status === 200) {
+                        inventoryContainer.innerHTML = this.responseText;
+                    } else {
+                        inventoryContainer.innerHTML = '<p>Failed to load inventory data. Please try again.</p>';
+                    }
+                };
+                xhr.send();
+            } else {
+                inventoryContainer.innerHTML = ''; // Clear data if no filter is selected
+            }
+        });
+    </script>
 </body>
 </html>
