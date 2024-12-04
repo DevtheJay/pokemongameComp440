@@ -17,6 +17,7 @@
                 <a href="moves.php" class="btn">Moves</a>
                 <a href="inventory.php" class="btn">Inventory</a>
                 
+                
             </div>
            
         </div>
