@@ -11,19 +11,21 @@ body {
 
 .container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 90vh;
+    align-items: flex-start; /* Align boxes to the top */
+    justify-content: space-evenly; /* Distribute space evenly between boxes */
+    gap: 30px; /* Add more space between boxes */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
-
 .box {
+    width: 45%; /* Ensure the boxes take up equal width */
     background: #f5f6f6;
     display: flex;
     flex-direction: column;
     padding: 25px 25px;
     border-radius: 25px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1),
-                0 0 20px rgba(0, 0, 0, 0.1);    
+                0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 10px; /* Optional: Add some margin for spacing */
 }
 .form-box {
     width: 450px;
@@ -64,6 +66,10 @@ body {
     transition: all .3s;
     margin-top: 10px;
     padding: 0px 10px;
+    display: block; /* Make buttons stack vertically */
+    margin: 10px auto; /* Center buttons within the box */
+    width: 18%; /* Optional: Control button width */
+    text-align: center;
 }
 .btn:hover {
     opacity: 0.82;
@@ -75,7 +81,47 @@ body {
     margin-top: 15px;
     text-align: center;
 }
+/***** Index Page *****/
+.index-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-color: #d0d9c7;
+}
 
+.index-page .container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;    /* Center elements horizontally */
+    justify-content: center;
+    text-align: center;
+}
+
+.index-page .box {
+    background: #f5f6f6;
+    padding: 30px 40px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Consistent width for the box */
+}
+.index-page .btn{
+    height: 35px;
+    background: rgba(97, 120, 93, 0.808);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all .3s;
+    margin-top: 10px;
+    padding: 0px 10px;
+    display: block; /* Make buttons stack vertically */
+    margin: 10px auto; /* Center buttons within the box */
+    width: 70%; /* Optional: Control button width */
+    text-align: center;
+}
 
 /***********Home Page************/
 
@@ -145,24 +191,44 @@ main{
 
 /* Pokedex styles */
 
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
 }
 
 table th, table td {
     padding: 12px;
     border: 1px solid #ddd;
+    vertical-align: middle; /* Ensures proper vertical alignment */
 }
 
 table th {
     background-color: #f4f4f4;
+    font-weight: bold;
 }
 
-h1 {
+table td button {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: rgba(97, 120, 93, 0.808);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     text-align: center;
-    margin-bottom: 20px;
+}
+
+table td button:hover {
+    background-color: rgba(97, 120, 93, 1);
+}
+
+/* Ensure buttons take minimal space */
+table td {
+    white-space: nowrap; /* Prevents wrapping of content inside cells */
+    text-align: center; /* Centers the button horizontally */
 }
