@@ -576,7 +576,7 @@ VALUES
 -- Add items to Brock's inventory
 INSERT INTO npc_inventory (item_id, npc_id, quantity)
 VALUES
-    ((SELECT item_id FROM items WHERE item_name = 'Rock Incense'), 1, 1), -- 1 Rock Incense
+    ((SELECT item_id FROM items WHERE item_name = 'X Defense'), 1, 1), -- 1 Rock Incense
     ((SELECT item_id FROM items WHERE item_name = 'Full Restore'), 1, 2); -- 2 Full Restores
 
 -- Add items to Misty's inventory
