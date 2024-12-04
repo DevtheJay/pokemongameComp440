@@ -7,9 +7,13 @@
     <title>Pokémon Database</title>
 </head>
 <body class = "index-page">
+<body class = "index-page">
     <div class="container">
         <div class="box">
                 <h1>Pokémon Database</h1>
+                <a href="user.php" class="btn">Users</a>
+                <a href="NPCS.php" class="btn">NPCS</a>
+                <a href="battles.php" class="btn">Battles</a>
                 <a href="user.php" class="btn">Users</a>
                 <a href="NPCS.php" class="btn">NPCS</a>
                 <a href="battles.php" class="btn">Battles</a>
