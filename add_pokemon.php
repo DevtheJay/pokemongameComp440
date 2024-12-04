@@ -43,12 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $moves[] = null;
         }
 
-        // Insert into user_pokemon_inventory
+        // Insert new Pokemons into user_pokemon_inventory
         $sqlInsert = "
             INSERT INTO user_pokemon_inventory (
                 user_id, pokemon_id, pokemon_nickname, pokemon_lvl, 
                 pokemon_moves_1, pokemon_moves_2, pokemon_moves_3, pokemon_moves_4
-            ) VALUES (
+            ) 
+            VALUES (
                 $user_id, $pokemon_id, 
                 '" . ($nickname ?: "NULL") . "', 
                 $pokemon_lvl, 
@@ -56,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 " . ($moves[1] ?: "NULL") . ", 
                 " . ($moves[2] ?: "NULL") . ", 
                 " . ($moves[3] ?: "NULL") . "
-            )";
+            )";   // Use NULL if nickname is empty and for empty move slots
 
         if ($conn->query($sqlInsert) === TRUE) {
             // Redirect to the users page
